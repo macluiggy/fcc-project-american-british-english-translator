@@ -7,14 +7,14 @@ module.exports = function (app) {
 
   app.route("/api/translate").post((req, res) => {
     const { text, locale } = req.body;
-    if (!locale && !text)
+    if (!locale && text == undefined)
       return res.json({ error: "Required field(s) missing" });
     if (text == "") return res.json({ error: "No text to translate" });
 
     let translation = "";
-    if (locate == "american-to-british") {
+    if (locale == "american-to-british") {
       translation = translator.toBritishEnglish(text);
-    } else if (locate == "american-to-british") {
+    } else if (locale == "american-to-british") {
       translation = translator.toAmericanEnglish(text);
     } else {
       return res.json({ error: "Invalid value for locale filed" });
